@@ -1,0 +1,643 @@
+#VRML_SIM R2023a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/appearances/protos/Parquetry.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+
+WorldInfo {
+  basicTimeStep 64
+  contactProperties [
+    ContactProperties {
+      material1 "intWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation -0.785398 0
+      forceDependentSlip [
+        10, 0
+      ]
+      softCFM 0.0001
+    }
+    ContactProperties {
+      material1 "extWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation 0.785398 0
+      forceDependentSlip [
+        10, 0
+      ]
+      softCFM 0.0001
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.30857677169465525 0.2016720448071378 0.9295745060584506 2.31972173465909
+  position 14.393674360083224 -13.362486900616307 18.242354552370927
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 0.06 0
+  floorSize 24 27
+  floorAppearance Parquetry {
+  }
+}
+Robot {
+  translation 1 1 0.035
+  children [
+    Receiver {
+      name "agent_receiver"
+    }
+    Emitter {
+      name "agent_emitter"
+    }
+    GPS {
+      translation 0 0 0.25
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.1
+          }
+        }
+      ]
+      boundingObject Cylinder {
+        height 0.01
+        radius 0.1
+      }
+    }
+    DEF Body Transform {
+      translation 0 0 0.12
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1 1 0.24
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.15
+            }
+          }
+        ]
+        name "wheel1"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel2"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 -0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          USE wheel
+        ]
+        name "wheel3"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 -0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel4"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+  ]
+  name "agent0"
+  boundingObject USE Body
+  physics Physics {
+    mass 1
+  }
+  controller "drive_my_robot"
+}
+Robot {
+  translation -3.8 1 0.135
+  children [
+    Receiver {
+      name "agent_receiver"
+      channel 2
+    }
+    Emitter {
+      name "agent_emitter"
+      channel 2
+    }
+    GPS {
+      translation 0 0 0.25
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.1
+          }
+        }
+      ]
+      boundingObject Cylinder {
+        height 0.01
+        radius 0.1
+      }
+    }
+    DEF Body Transform {
+      translation 0 0 0.12
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1 1 0.24
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.15
+            }
+          }
+        ]
+        name "wheel1"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel2"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 -0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          USE wheel
+        ]
+        name "wheel3"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 -0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel4"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+  ]
+  name "agent2"
+  boundingObject USE Body
+  physics Physics {
+    mass 1
+  }
+  controller "drive_my_robot"
+}
+Robot {
+  translation -3.7 -2.79 0.235
+  children [
+    Receiver {
+      name "agent_receiver"
+      channel 3
+    }
+    Emitter {
+      name "agent_emitter"
+      channel 3
+    }
+    GPS {
+      translation 0 0 0.25
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.1
+          }
+        }
+      ]
+      boundingObject Cylinder {
+        height 0.01
+        radius 0.1
+      }
+    }
+    DEF Body Transform {
+      translation 0 0 0.12
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1 1 0.24
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.15
+            }
+          }
+        ]
+        name "wheel1"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel2"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 -0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          USE wheel
+        ]
+        name "wheel3"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 -0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel4"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+  ]
+  name "agent3"
+  boundingObject USE Body
+  physics Physics {
+    mass 1
+  }
+  controller "drive_my_robot"
+}
+Robot {
+  translation 1.1 -2.85 0.135
+  children [
+    Receiver {
+      name "agent_receiver"
+      channel 1
+    }
+    Emitter {
+      name "agent_emitter"
+      channel 1
+    }
+    GPS {
+      translation 0 0 0.25
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.01
+            radius 0.1
+          }
+        }
+      ]
+      boundingObject Cylinder {
+        height 0.01
+        radius 0.1
+      }
+    }
+    DEF Body Transform {
+      translation 0 0 0.12
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.5 0.5 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 1 1 0.24
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor1"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.15
+            }
+          }
+        ]
+        name "wheel1"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor2"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel2"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor 0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor3"
+        }
+      ]
+      endPoint Solid {
+        translation 0.56 -0.25 0.12
+        rotation 0 1 0 1.5708003061004252
+        children [
+          USE wheel
+        ]
+        name "wheel3"
+        contactMaterial "extWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        anchor -0.56 -0.25 0.12
+      }
+      device [
+        RotationalMotor {
+          name "motor4"
+        }
+      ]
+      endPoint Solid {
+        translation -0.56 -0.25 0.12
+        rotation 0 1 0 1.5707996938995745
+        children [
+          USE wheel
+        ]
+        name "wheel4"
+        contactMaterial "intWheelMat"
+        boundingObject USE wheel
+        physics USE wheel_physics
+      }
+    }
+  ]
+  name "agent1"
+  boundingObject USE Body
+  physics Physics {
+    mass 1
+  }
+  controller "drive_my_robot"
+}
+Robot {
+  children [
+    Emitter {
+      name "control_agent3_emitter"
+      channel 3
+    }
+    Emitter {
+      name "control_agent2_emitter"
+      channel 2
+    }
+    Emitter {
+      name "control_agent1_emitter"
+      channel 1
+    }
+    Emitter {
+      name "control_agent0_emitter"
+    }
+    Receiver {
+      name "supervisor_receiver"
+    }
+  ]
+  name "supervisor"
+  controller "supervisor_controller"
+  supervisor TRUE
+}
