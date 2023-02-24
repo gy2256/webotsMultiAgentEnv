@@ -33,8 +33,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.30857677169465525 0.2016720448071378 0.9295745060584506 2.31972173465909
-  position 14.393674360083224 -13.362486900616307 18.242354552370927
+  orientation -0.5346712377159069 0.5258505885722858 0.6615193315826234 2.0886970268851126
+  position 0.9223655658816606 -1.6312131754961952 8.201643540637479
 }
 TexturedBackground {
 }
@@ -42,8 +42,9 @@ TexturedBackgroundLight {
 }
 RectangleArena {
   translation 0 0.06 0
-  floorSize 24 27
+  floorSize 30 30
   floorAppearance Parquetry {
+    type "light strip"
   }
 }
 Robot {
@@ -188,7 +189,7 @@ Robot {
   controller "drive_my_robot"
 }
 Robot {
-  translation -3.8 1 0.135
+  translation 5.5 5.5 0.135
   children [
     Receiver {
       name "agent_receiver"
@@ -331,7 +332,7 @@ Robot {
   controller "drive_my_robot"
 }
 Robot {
-  translation -3.7 -2.79 0.235
+  translation 0.8 5.5 0.235
   children [
     Receiver {
       name "agent_receiver"
@@ -474,7 +475,7 @@ Robot {
   controller "drive_my_robot"
 }
 Robot {
-  translation 1.1 -2.85 0.135
+  translation 7 1 0.135
   children [
     Receiver {
       name "agent_receiver"
@@ -618,6 +619,18 @@ Robot {
 }
 Robot {
   children [
+    Receiver {
+      name "agent3_state_receiver"
+      channel 3
+    }
+    Receiver {
+      name "agent2_state_receiver"
+      channel 2
+    }
+    Receiver {
+      name "agent1_state_receiver"
+      channel 1
+    }
     Emitter {
       name "control_agent3_emitter"
       channel 3
@@ -634,7 +647,7 @@ Robot {
       name "control_agent0_emitter"
     }
     Receiver {
-      name "supervisor_receiver"
+      name "agent0_state_receiver"
     }
   ]
   name "supervisor"
