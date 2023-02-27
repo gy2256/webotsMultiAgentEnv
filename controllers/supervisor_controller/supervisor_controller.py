@@ -9,7 +9,7 @@ supervisor_robot = Supervisor()
 
 
 # get the time step of the current world.
-timestep = 64
+timestep = 32
 
 # You should insert a getDevice-like function in order to get the
 # instance of a device of the robot. Something like:

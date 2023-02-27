@@ -32,14 +32,14 @@ if __name__ =="__main__":
     robot = Robot()
     
     
-    timestep = 64
+    timestep = 32
     
     gps = robot.getDevice("gps")
     control_receiver = robot.getDevice("agent_receiver")
     state_emitter = robot.getDevice("agent_emitter")
     gps.enable(timestep)
     control_receiver.enable(timestep)
-    max_speed = 10
+    #max_speed = 20
     motor1 = robot.getDevice("motor1")
     motor2 = robot.getDevice("motor2")
     motor3 = robot.getDevice("motor3")
@@ -60,12 +60,14 @@ if __name__ =="__main__":
         # Enter here functions to read sensor data, like:
         #  val = ds.getValue()
         
-        vy, vx, omega = 0, 0, 0
+        #vy, vx, omega = 0, 0, 0
+        # Get GPS Vlaues
+        
         
         if control_receiver.getQueueLength()>0:
             received_data_string = control_receiver.getString()
             cmd_vel = ast.literal_eval(received_data_string)
-            velocities = inverse_kinematics_velocity(cmd_vel[1],cmd_vel[0],omega)
+            velocities = inverse_kinematics_velocity(cmd_vel[1],cmd_vel[0],0.0)
             
             motor1.setVelocity(velocities[0])
             motor2.setVelocity(velocities[1])
@@ -75,15 +77,13 @@ if __name__ =="__main__":
             control_receiver.nextPacket()
         #velocities = inverse_kinematics_velocity(vy,vx,omega)
         
-        
-        
-        
-        # Get GPS Vlaues
         gps_value = gps.getValues() #[x,y,z]
         gps_speed_vec = gps.getSpeedVector()  #[vx,vy,vz]
         state_vec = str(gps_value+gps_speed_vec)
         message = state_vec.encode("utf-8")
         state_emitter.send(message)
+        
+        
         
         pass
     

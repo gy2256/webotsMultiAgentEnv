@@ -6,7 +6,6 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
 
 WorldInfo {
-  basicTimeStep 64
   contactProperties [
     ContactProperties {
       material1 "intWheelMat"
@@ -33,8 +32,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.5346712377159069 0.5258505885722858 0.6615193315826234 2.0886970268851126
-  position 0.9223655658816606 -1.6312131754961952 8.201643540637479
+  orientation -0.29416715493898876 0.3138467377374917 0.9027546234534803 1.783253329797059
+  position 3.509232158551664 -23.209991313730438 18.653246085121218
 }
 TexturedBackground {
 }
