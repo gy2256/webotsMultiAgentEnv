@@ -39,8 +39,13 @@ class Agent:
             return False
 
 # Define Mission parameters
-agent_init_pos_list = [[1.0,1.0,0.0],[7.0, 1.0, 0.0], [5.5, 5.5, 0.0], [0.8, 5.5, 0.0]]
-agent_goal_pos_list = [[7.0, 1.0, 0.0], [1.0, 1.0, 0.0], [0.8, 5.5, 0.0], [5.5, 5.5, 0.0]]
+agent_init_pos_list = [[-10.16,10.00,0.0],[-5.5, 10.15, 0.0], [-0.65, 10.1, 0.0], [4.5, 10.06, 0.0]]
+agent0_waypoints = np.array([[-10.16,10.00],[-10.16, 5.0], [-10.16, 0.0], [-5.0, 5.0]]) #[[x1,y1],[x2,y2],...]
+agent1_waypoints = np.array([[-5.5, 10.15],[-11.92, 10.15], [-11.92, 3.63], [-15.26, 7.92]])
+agent2_waypoints = np.array([[-0.65, 10.1],[-0.65, 3.21], [3.58, -2.58], [-2.43, -8.48]])
+agent3_waypoints = np.array([[4.5, 10.06],[8.72, 10.06], [3.03, 4.31], [10.74, -3.65]])
+agent_waypoint_list = [agent0_waypoints, agent1_waypoints, agent2_waypoints, agent3_waypoints]
+target_speed = 2.5 # m/s
 
 # MPC controller parameters
 Q = np.diag([1.0, 0.15, 1.0, 0.15])
@@ -103,6 +108,10 @@ agent_list = [agent_0, agent_1, agent_2, agent_3]
 # MPC initialization
 agent_MPC_list = []
 agent_x_ref_list = []
+Agent0_target_idx, Agent1_target_idx, Agent2_target_idx, Agent3_target_idx = 0, 0, 0, 0
+agent_target_idx_list = [Agent0_target_idx, Agent1_target_idx, Agent2_target_idx, Agent3_target_idx]
+agent_x_local_ref_list = [None, None, None, None]
+agent_command_list = [None, None, None, None]
 
 for i in range(len(agent_list)):
     '''
@@ -119,6 +128,11 @@ for i in range(len(agent_list)):
         control_weight=R,  # R matrix
         # Initialize initial state with 0 velocities in x, y direction
         x_init=agent_list[i].return_state()))
+    
+    agent_x_ref_list.append(agent_MPC_list[i].waypoints_to_x_ref(agent_waypoint_list[i], interpolated_dist=0.25,
+                                                                 target_speed=target_speed, interpolation_type="linear"))
+
+
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
@@ -130,23 +144,50 @@ while supervisor_robot.step(timestep) != -1:
             agent.update_state(ast.literal_eval(agent_receiver.getString()))
             agent_receiver.nextPacket()
     
+    agent_current_state_list = [agent.return_state() for agent in agent_list]
 
+    for i in range(len(agent_list)):
+        agent_x_local_ref_list[i], agent_target_idx_list[i] = agent_MPC_list[i].calculate_local_reference(
+            agent_x_ref_list[i], agent_list[i].return_state(), agent_target_idx_list[i]
+        )
+        _, _, _, _, u1_traj, u2_traj = agent_MPC_list[i].mpc_control(
+            agent_x_local_ref_list[i], agent_list[i].return_state()
+        )
+
+        agent_command_list[i] = "[{}, {}, 0]".format(
+            agent_current_state_list[i][1]+u1_traj[0] * DT,
+            agent_current_state_list[i][3]+u2_traj[0] * DT,
+            0,
+        )
+    
+    for emitter, agent_command in zip(agent_emitter_list, agent_command_list):
+        emitter.send(agent_command)
+    
+    '''
+
+    agent0_x_local_ref, agent_target_idx_list[0] = agent_MPC_list[0].calculate_local_reference(agent_x_ref_list[0], agent_list[0].return_state(), agent_target_idx_list[0])
+    _, _, _, _, u1_traj, u2_traj = agent_MPC_list[0].mpc_control(agent0_x_local_ref, agent_list[0].return_state())
+    
     # Agent 0 Control 
-    agent0_cmd_vel = "[1.0, 0.0, 0]"
+    # agent0_cmd_vel = "[1.0, 0.0, 0]"
+    agent0_cmd_vel = "[{}, {}, 0]".format(
+        agent_list[0].return_vel()[0]+u1_traj[0] * DT,
+        agent_list[0].return_vel()[1]+u2_traj[0] * DT,
+        0,
+    )
     control_agent0_emitter.send(agent0_cmd_vel)
     
     # Agent 1 Control
-    agent1_cmd_vel = "[1.0, 0.0, 0]"
+    agent1_cmd_vel = "[0.0, 0.0, 0]"
     control_agent1_emitter.send(agent1_cmd_vel)
     
     # Agent 2 Control
-    agent2_cmd_vel = "[0.0, 1.0, 0]"
+    agent2_cmd_vel = "[0.0, 0.0, 0]"
     control_agent2_emitter.send(agent2_cmd_vel)
     
     # Agent 3 Control
-    agent3_cmd_vel = "[0.0, -1.0, 0]"
+    agent3_cmd_vel = "[0.0, 0.0, 0]"
     control_agent3_emitter.send(agent3_cmd_vel)
-    
+    '''
     pass
 
-# Enter here exit cleanup code.

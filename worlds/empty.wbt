@@ -32,8 +32,8 @@ WorldInfo {
   ]
 }
 Viewpoint {
-  orientation -0.29416715493898876 0.3138467377374917 0.9027546234534803 1.783253329797059
-  position 3.509232158551664 -23.209991313730438 18.653246085121218
+  orientation -0.2638569353813411 0.48825073578139244 0.8318598058928534 1.3374005789011414
+  position -29.947216990550043 -73.44089188566238 65.10198156282335
 }
 TexturedBackground {
 }
@@ -41,13 +41,13 @@ TexturedBackgroundLight {
 }
 RectangleArena {
   translation 0 0.06 0
-  floorSize 30 30
+  floorSize 50 50
   floorAppearance Parquetry {
     type "light strip"
   }
 }
 DEF agent_0 Robot {
-  translation 1 3.65 0.035
+  translation -10.16 10.34 0.035
   children [
     Receiver {
       name "agent_receiver"
@@ -94,6 +94,7 @@ DEF agent_0 Robot {
       device [
         RotationalMotor {
           name "motor1"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -123,6 +124,7 @@ DEF agent_0 Robot {
       device [
         RotationalMotor {
           name "motor2"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -144,6 +146,7 @@ DEF agent_0 Robot {
       device [
         RotationalMotor {
           name "motor3"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -165,6 +168,7 @@ DEF agent_0 Robot {
       device [
         RotationalMotor {
           name "motor4"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -188,7 +192,7 @@ DEF agent_0 Robot {
   controller "drive_my_robot"
 }
 DEF agent_2 Robot {
-  translation 5.5 5.5 0.135
+  translation -0.65 10.1 0.135
   children [
     Receiver {
       name "agent_receiver"
@@ -237,6 +241,7 @@ DEF agent_2 Robot {
       device [
         RotationalMotor {
           name "motor1"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -266,6 +271,7 @@ DEF agent_2 Robot {
       device [
         RotationalMotor {
           name "motor2"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -287,6 +293,7 @@ DEF agent_2 Robot {
       device [
         RotationalMotor {
           name "motor3"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -308,6 +315,7 @@ DEF agent_2 Robot {
       device [
         RotationalMotor {
           name "motor4"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -331,7 +339,7 @@ DEF agent_2 Robot {
   controller "drive_my_robot"
 }
 DEF agent_3 Robot {
-  translation -4.01 3.84 0.235
+  translation 4.5 10.06 0.235
   children [
     Receiver {
       name "agent_receiver"
@@ -380,6 +388,7 @@ DEF agent_3 Robot {
       device [
         RotationalMotor {
           name "motor1"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -409,6 +418,7 @@ DEF agent_3 Robot {
       device [
         RotationalMotor {
           name "motor2"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -430,6 +440,7 @@ DEF agent_3 Robot {
       device [
         RotationalMotor {
           name "motor3"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -451,6 +462,7 @@ DEF agent_3 Robot {
       device [
         RotationalMotor {
           name "motor4"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -474,7 +486,7 @@ DEF agent_3 Robot {
   controller "drive_my_robot"
 }
 DEF agent_1 Robot {
-  translation 7 3.1 0.135
+  translation -5.5 10.15 0.135
   children [
     Receiver {
       name "agent_receiver"
@@ -523,6 +535,7 @@ DEF agent_1 Robot {
       device [
         RotationalMotor {
           name "motor1"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -552,6 +565,7 @@ DEF agent_1 Robot {
       device [
         RotationalMotor {
           name "motor2"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -573,6 +587,7 @@ DEF agent_1 Robot {
       device [
         RotationalMotor {
           name "motor3"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
@@ -594,6 +609,7 @@ DEF agent_1 Robot {
       device [
         RotationalMotor {
           name "motor4"
+          maxVelocity 100
         }
       ]
       endPoint Solid {
