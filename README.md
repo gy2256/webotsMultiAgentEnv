@@ -1,4 +1,7 @@
 # webotsMultiAgentEnv
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.8287825.svg)](https://doi.org/10.5281/zenodo.8287825)
+
+
 This is a Webots environment with omnidirectional robots for testing algorithms. The environment contains four robots that each can take into a list of waypoints in x and y coordinates. The program then takes into the desired speed (`target_speed`), calculates the corresponding velocity profile, and generates a state reference for each MPC controller to track. The MPC implementation is in **controllers/supervisor_controller/MPC_controller.py**. 
 
 ## Dependencies (tested)
