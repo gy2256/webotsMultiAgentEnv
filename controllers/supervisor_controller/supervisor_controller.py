@@ -191,13 +191,21 @@ while supervisor_robot.step(timestep) != -1:
         ].calculate_local_reference(
             agent_x_ref_list[i], agent_list[i].return_state(), agent_target_idx_list[i]
         )
-        _, _, _, _, u1_traj, u2_traj = agent_MPC_list[i].mpc_control(
+        '''
+        The MPC controller returns acceleration commands with N length, 
+        i.e. ux_traj = [ux[t0], ux[t1], ..., ux[tN-1]], 
+             ut_traj = [uy[t0], uy[t1], ..., uy[tN-1]].
+
+        Note that only the first element of the acceleration commands is applied to the robot.
+        '''
+        _, _, _, _, ux_traj, uy_traj = agent_MPC_list[i].mpc_control(
             agent_x_local_ref_list[i], agent_list[i].return_state()
         )
-
+        # Construct control command. Each robot's local controller takes in velocity commands
+        # We perform intergration to covert acceleration commands to velocity commands
         agent_command_list[i] = "[{}, {}, 0]".format(
-            agent_current_state_list[i][1] + u1_traj[0] * DT,
-            agent_current_state_list[i][3] + u2_traj[0] * DT,
+            agent_current_state_list[i][1] + ux_traj[0] * DT,
+            agent_current_state_list[i][3] + uy_traj[0] * DT,
             0,
         )
 
