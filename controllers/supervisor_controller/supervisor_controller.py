@@ -78,8 +78,8 @@ MPC_horizon = 8
 supervisor_robot = Supervisor()
 
 # get the time step of the current world.
-timestep = 64
-DT = timestep * 0.001  # This value should be multiple of the basictimestep in Webots
+timestep = 32 #basictimestep in Webots should be multiple of timestep
+DT = timestep * 0.001
 
 # Setup sensors for receving control commands and brodcasting state information
 agent0_state_receiver = supervisor_robot.getDevice("agent0_state_receiver")
