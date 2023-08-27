@@ -1,10 +1,7 @@
 import numpy as np
 import cvxpy
-import os
-
 
 from Utilits.CubicSpline import cubic_spline_planner, spline_continuity
-from Utilits.utils import read_waypoints
 
 """
 MPC controller for webots environment
