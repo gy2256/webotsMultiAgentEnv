@@ -3,11 +3,11 @@
 
 Please consider citing this work if you find it helpful. All support is appreciated.
 ```
-@software{Yang_Webots_Multi-agents_Environment_2023,
+@software{Yang_Webots_Multi-agent_Environment_2023,
 author = {Yang, Guang},
 doi = {10.5281/zenodo.8287825},
 month = aug,
-title = {{Webots Multi-agents Environment}},
+title = {{Webots Multi-agent Environment}},
 url = {https://github.com/gy2256/webotsMultiAgentEnv},
 version = {0.0.1},
 year = {2023}
