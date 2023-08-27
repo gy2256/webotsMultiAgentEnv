@@ -39,12 +39,16 @@ class Agent:
             return False
 
 # Define Mission parameters
-agent_init_pos_list = [[-10.16,10.00,0.0],[-5.5, 10.15, 0.0], [-0.65, 10.1, 0.0], [4.5, 10.06, 0.0]]
 agent0_waypoints = np.array([[-10.16,10.00],[-10.16, 5.0], [-10.16, 0.0], [-5.0, 5.0]]) #[[x1,y1],[x2,y2],...]
 agent1_waypoints = np.array([[-5.5, 10.15],[-11.92, 10.15], [-11.92, 3.63], [-15.26, 7.92]])
 agent2_waypoints = np.array([[-0.65, 10.1],[-0.65, 3.21], [3.58, -2.58], [-2.43, -8.48]])
 agent3_waypoints = np.array([[4.5, 10.06],[8.72, 10.06], [3.03, 4.31], [10.74, -3.65]])
 agent_waypoint_list = [agent0_waypoints, agent1_waypoints, agent2_waypoints, agent3_waypoints]
+agent_init_pos_list = [agent0_waypoints[0].tolist(),agent1_waypoints[0].tolist(),agent2_waypoints[0].tolist(),agent3_waypoints[0].tolist()]
+
+for i in range(len(agent_init_pos_list)):
+    agent_init_pos_list[i].append(0.0) # Add z coordinate to the initial position
+
 target_speed = 2.5 # m/s
 
 # MPC controller parameters
@@ -114,13 +118,6 @@ agent_x_local_ref_list = [None, None, None, None]
 agent_command_list = [None, None, None, None]
 
 for i in range(len(agent_list)):
-    '''
-    
-    agent_x_ref_list.append(np.array([pos_waypoint_list[i][:,0], 
-                                      vel_waypoint_list[i][:,0],
-                                      pos_waypoint_list[i][:,1],
-                                      vel_waypoint_list[i][:,1]]))
-    '''
     agent_MPC_list.append(MPC_controller(
         MPC_horizon=MPC_horizon,
         dt=DT,  # MPC dt needs to match simulation dt
@@ -163,31 +160,5 @@ while supervisor_robot.step(timestep) != -1:
     for emitter, agent_command in zip(agent_emitter_list, agent_command_list):
         emitter.send(agent_command)
     
-    '''
-
-    agent0_x_local_ref, agent_target_idx_list[0] = agent_MPC_list[0].calculate_local_reference(agent_x_ref_list[0], agent_list[0].return_state(), agent_target_idx_list[0])
-    _, _, _, _, u1_traj, u2_traj = agent_MPC_list[0].mpc_control(agent0_x_local_ref, agent_list[0].return_state())
-    
-    # Agent 0 Control 
-    # agent0_cmd_vel = "[1.0, 0.0, 0]"
-    agent0_cmd_vel = "[{}, {}, 0]".format(
-        agent_list[0].return_vel()[0]+u1_traj[0] * DT,
-        agent_list[0].return_vel()[1]+u2_traj[0] * DT,
-        0,
-    )
-    control_agent0_emitter.send(agent0_cmd_vel)
-    
-    # Agent 1 Control
-    agent1_cmd_vel = "[0.0, 0.0, 0]"
-    control_agent1_emitter.send(agent1_cmd_vel)
-    
-    # Agent 2 Control
-    agent2_cmd_vel = "[0.0, 0.0, 0]"
-    control_agent2_emitter.send(agent2_cmd_vel)
-    
-    # Agent 3 Control
-    agent3_cmd_vel = "[0.0, 0.0, 0]"
-    control_agent3_emitter.send(agent3_cmd_vel)
-    '''
     pass
 
