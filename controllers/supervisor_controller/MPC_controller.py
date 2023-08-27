@@ -12,8 +12,7 @@ MPC controller for webots environment
 
 
 class MPC_controller:
-    def __init__(
-        self, MPC_horizon, dt, state_weight, control_weight, x_init) -> None:
+    def __init__(self, MPC_horizon, dt, state_weight, control_weight, x_init) -> None:
         self.N = MPC_horizon
         self.dt = dt
         self.Q = state_weight
@@ -26,7 +25,6 @@ class MPC_controller:
         self.state_dimension = 4
         self.control_dimension = 2
         self.goal_dist = 0.2
-
 
     def get_nparray_from_matrix(self, x):
         return np.array(x).flatten()

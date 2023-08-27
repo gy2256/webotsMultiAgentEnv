@@ -1,10 +1,8 @@
-
 import numpy as np
 from scipy import interpolate
 
 
 class Spline2D:
-
     def __init__(self, x, y, kind="cubic"):
         self.s = self.__calc_s(x, y)
         self.sx = interpolate.interp1d(self.s, x, kind=kind)
